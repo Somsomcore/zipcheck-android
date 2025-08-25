@@ -9,7 +9,7 @@ local.properties
 # Build outputs (모듈 하위 전부)
 **/build/
 .cxx/
-.externalNativeBuild/
+.externalNativeBugit rm -r --cached .ild/
 
 # Studio 캡처
 captures/
