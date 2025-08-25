@@ -26,23 +26,52 @@ android {
             )
         }
     }
+
+    // ✅ Compose 권장: JDK/Bytecode 17
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    // ✅ Kotlin 1.9.0 ↔ Compose Compiler 1.5.0 매칭
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.0"
     }
 }
 
 dependencies {
-
+    // --- 기본 ---
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // --- Compose BOM & 필수 아티팩트 ---
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.material3)
+
+    // Activity-Compose
+    implementation(libs.androidx.activity.compose)
+
+    // 테스트/툴링
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    // ❌ XML 전용은 제거(원하면 남겨도 되지만 Compose만 쓸 거면 비권장)
+    // implementation(libs.androidx.activity)           // <- activity-compose로 대체됨
+    // implementation(libs.androidx.constraintlayout)   // <- Compose에선 불필요
 }
