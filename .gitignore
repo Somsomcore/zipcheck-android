@@ -1,10 +1,25 @@
-*.iml
-.gradle
-/local.properties
+# IDE
 .idea/
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+*.iml
+
+# Gradle (래퍼는 커밋해야 하므로 .gradle만 무시)
+.gradle/
 local.properties
+
+# Build outputs (모듈 하위 전부)
+**/build/
+.cxx/
+.externalNativeBuild/
+
+# Studio 캡처
+captures/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# (선택) 키스토어/비밀
+*.jks
+*.keystore
+keystore.properties
+*.env
